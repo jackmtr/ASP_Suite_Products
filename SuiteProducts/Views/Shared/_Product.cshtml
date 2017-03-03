@@ -1,0 +1,9 @@
+﻿@model SuiteProducts.Models.Product
+
+<div class="product">
+    <h4>@Model.Product_Name</h4>
+    <span>@Model.Price</span>
+    <p>@Model.Description</p>
+
+    <span class="right">@Html.ActionLink("Edit", "Edit", new { id = Model.Product_Id })</span>
+</div>

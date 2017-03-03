@@ -1,0 +1,15 @@
+﻿@model IEnumerable<SuiteProducts.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@foreach (var product in Model) {
+    <div>
+        <h4>@product.Product_Name</h4>
+        <div>@product.Price, @product.Catagory</div>
+        <div>@product.Description</div>
+        <hr/>
+    </div>
+}
