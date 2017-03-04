@@ -1,29 +1,38 @@
-﻿using SuiteProducts.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using SuiteProducts.Models;
 
 namespace SuiteProducts.Controllers
 {
     public class PackageController : Controller
     {
-        SuitesProductDb _db = new SuitesProductDb();
+        private SuitesProductDb _db = new SuitesProductDb();
 
         // GET: Package
-        [HttpGet]//maybe do [Authorize]
         public ActionResult Index()
         {
-            var packages = _db.Packages.ToList();
-
-            return View(packages);
+            return View(_db.Packages.ToList());
         }
 
         // GET: Package/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Package package = _db.Packages.Find(id);
+            if (package == null)
+            {
+                return HttpNotFound();
+            }
+            return View(package);
         }
 
         // GET: Package/Create
@@ -31,65 +40,88 @@ namespace SuiteProducts.Controllers
         {
             return View();
         }
-
+        // I think I should remove id
         // POST: Package/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Package_Id,Package_Name,Price,Description")] Package package)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                _db.Packages.Add(package);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(package);
         }
 
         // GET: Package/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Package package = _db.Packages.Find(id);
+            if (package == null)
+            {
+                return HttpNotFound();
+            }
+            return View(package);
         }
 
         // POST: Package/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Package_Id,Package_Name,Price,Description")] Package package)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                _db.Entry(package).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(package);
         }
 
         // GET: Package/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Package package = _db.Packages.Find(id);
+            if (package == null)
+            {
+                return HttpNotFound();
+            }
+            return View(package);
         }
 
         // POST: Package/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            Package package = _db.Packages.Find(id);
+            _db.Packages.Remove(package);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                return View();
+                _db.Dispose();
             }
+            base.Dispose(disposing);
         }
     }
 }

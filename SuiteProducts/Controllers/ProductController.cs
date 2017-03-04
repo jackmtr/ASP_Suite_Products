@@ -1,7 +1,9 @@
 ﻿using SuiteProducts.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,7 +11,7 @@ namespace SuiteProducts.Controllers
 {
     public class ProductController : Controller
     {
-        SuitesProductDb _db = new SuitesProductDb();
+        private SuitesProductDb _db = new SuitesProductDb();
 
         [ChildActionOnly]
         public ActionResult BestProduct() {
@@ -28,107 +30,92 @@ namespace SuiteProducts.Controllers
             return View(model);
         }
 
-            // GET: Product/Details/5
-            public ActionResult Details(int id)
-            {
-                return View();
-            }
+        // GET: Product/Details/5
+        public ActionResult Details(int? id)
+        {
+        if (id == null) {
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+        Product product = _db.Products.Find(id);
+        if (product == null) {
+            return HttpNotFound();
+        }
+            return View(product);
+        }
 
-            // GET: Product/Create
-            public ActionResult Create()
-            {
-                return View();
-            }
+        // GET: Product/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
 
-            // POST: Product/Create
-            [HttpPost]
-            public ActionResult Create(FormCollection collection)
-            {
-                try
-                {
-                    // TODO: Add insert logic here
-
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    return View();
-                }
-            }
+        //I think I should remove id
+        //FormCollection collection was original single parameter
+        // POST: Product/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Product_Id, Product_Name, Price, Catagory, Description, Package_Id")]  Product product)
+        {
+        if (ModelState.IsValid) {
+            _db.Products.Add(product);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+                return View(product);
+        }
 
         // GET: Product/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            var review = _db.Products.Single(r => r.Product_Id == id);
+            if (id == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = _db.Products.Find(id);
+            if (product == null) {
+                return HttpNotFound();
+            }
 
-            return View(review);
+            return View(product);
         }
 
         // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        //public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit([Bind(Include = "Product_Id, Product_Name, Price, Catagory, Description, Package_Id")] Product product)
         {
-            var product = _db.Products.Single(r => r.Product_Id == id);
-
-            if (TryUpdateModel(product)) {
-                //save into db
+            if (ModelState.IsValid) {
+                _db.Entry(product).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(product);
-
-            //try
-            //{
-            //    // TODO: Add update logic here
-
-            //    return RedirectToAction("Index");
-            //}
-            //catch
-            //{
-            //    return View();
-            //}
         }
 
-            // GET: Product/Delete/5
-            public ActionResult Delete(int id)
-            {
-                return View();
+        // GET: Product/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            // POST: Product/Delete/5
-            [HttpPost]
-            public ActionResult Delete(int id, FormCollection collection)
-            {
-                try
-                {
-                    // TODO: Add delete logic here
-
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    return View();
-                }
+            Product product = _db.Products.Find(id);
+            if (product == null) {
+                return HttpNotFound();
             }
-        //static List<Product> _products = new List<Product> {
-        //    new Product {
-        //        Product_Id= 1,
-        //        Product_Name= "Fresh Vegetable",
-        //        Price= 60.00F,
-        //        Description= "Baby carrots, celery, grape tomatoes, cauliflower, broccoli, cucumber, radish, peppers, sour cream dill dip",
-        //    },
-        //    new Product {
-        //        Product_Id=2,
-        //        Product_Name="Premium Cheese Platter",
-        //        Price= 100.00F,
-        //        Description= "Artisan selection of assorted, perfecly ripened local and international cheeses, pear jam, grpes, dried fruits.",
-        //    },
-        //new Product {
-        //        Product_Id= 3,
-        //        Product_Name= "Fresh Fruit",
-        //        Price= 65,
-        //        Description = "Watermelon, cantaloupe, pineapple, honeydew, strawberries, raspberries, blueberries"
-        //    },
-        //};
+            return View(product);
+        }
+
+        // POST: Product/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        //public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Product product = _db.Products.Find(id);
+            _db.Products.Remove(product);
+            _db.SaveChanges();
+        return RedirectToAction("Index");
+        }
 
         protected override void Dispose(bool disposing)
         {

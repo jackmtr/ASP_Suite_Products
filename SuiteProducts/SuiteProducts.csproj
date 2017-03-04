@@ -251,7 +251,14 @@
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Shared\_Product.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Package\Create.cshtml" />
+    <Content Include="Views\Package\Delete.cshtml" />
+    <Content Include="Views\Package\Details.cshtml" />
+    <Content Include="Views\Package\Edit.cshtml" />
     <Content Include="Views\Package\Index.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Product\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
