@@ -14,18 +14,17 @@ namespace SuiteProducts.Controllers
         [ChildActionOnly]
         public ActionResult BestProduct() {
 
-            var product = _products.Where(r => r.Product_Id == 1);
+            var product = _db.Products.First();
 
-            return PartialView("_Product", product.First());
+            return PartialView("_Product", product);
         }
 
         // GET: Product
-        public ActionResult Index()
+        public ActionResult Index(string catagory = null, string searchTerm = null)
         {
-            //var model = from r in _products
-            //            orderby r.Price
-            //            select r;
-            var model = _db.Products.ToList();
+            //turn catagory into a enum
+
+            var model = _db.Products.Where(r => (catagory == null && searchTerm == null) || r.Catagory.ToUpper() == catagory.ToUpper() || r.Product_Name.StartsWith(searchTerm)).Take(10);
             return View(model);
         }
 
@@ -60,7 +59,7 @@ namespace SuiteProducts.Controllers
         // GET: Product/Edit/5
         public ActionResult Edit(int id)
         {
-            var review = _products.Single(r => r.Product_Id == id);
+            var review = _db.Products.Single(r => r.Product_Id == id);
 
             return View(review);
         }
@@ -69,7 +68,7 @@ namespace SuiteProducts.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            var product = _products.Single(r => r.Product_Id == id);
+            var product = _db.Products.Single(r => r.Product_Id == id);
 
             if (TryUpdateModel(product)) {
                 //save into db
@@ -110,27 +109,26 @@ namespace SuiteProducts.Controllers
                     return View();
                 }
             }
-
-        static List<Product> _products = new List<Product> {
-            new Product {
-                Product_Id= 1,
-                Product_Name= "Fresh Vegetable",
-                Price= 60.00F,
-                Description= "Baby carrots, celery, grape tomatoes, cauliflower, broccoli, cucumber, radish, peppers, sour cream dill dip",
-            },
-            new Product {
-                Product_Id=2,
-                Product_Name="Premium Cheese Platter",
-                Price= 100.00F,
-                Description= "Artisan selection of assorted, perfecly ripened local and international cheeses, pear jam, grpes, dried fruits.",
-            },
-            new Product {
-                Product_Id= 3,
-                Product_Name= "Fresh Fruit",
-                Price= 65,
-                Description = "Watermelon, cantaloupe, pineapple, honeydew, strawberries, raspberries, blueberries"
-            },
-        };
+        //static List<Product> _products = new List<Product> {
+        //    new Product {
+        //        Product_Id= 1,
+        //        Product_Name= "Fresh Vegetable",
+        //        Price= 60.00F,
+        //        Description= "Baby carrots, celery, grape tomatoes, cauliflower, broccoli, cucumber, radish, peppers, sour cream dill dip",
+        //    },
+        //    new Product {
+        //        Product_Id=2,
+        //        Product_Name="Premium Cheese Platter",
+        //        Price= 100.00F,
+        //        Description= "Artisan selection of assorted, perfecly ripened local and international cheeses, pear jam, grpes, dried fruits.",
+        //    },
+        //new Product {
+        //        Product_Id= 3,
+        //        Product_Name= "Fresh Fruit",
+        //        Price= 65,
+        //        Description = "Watermelon, cantaloupe, pineapple, honeydew, strawberries, raspberries, blueberries"
+        //    },
+        //};
 
         protected override void Dispose(bool disposing)
         {

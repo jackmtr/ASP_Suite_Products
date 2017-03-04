@@ -64,6 +64,8 @@ C:\Users\jackm\Source\Repos\SuiteProducts\SuiteProducts\bin\Microsoft.Owin.Secur
 C:\Users\jackm\Source\Repos\SuiteProducts\SuiteProducts\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\jackm\Source\Repos\SuiteProducts\SuiteProducts\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\jackm\Source\Repos\SuiteProducts\SuiteProducts\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\jackm\Source\Repos\SuiteProducts\SuiteProducts\obj\Debug\SuiteProducts.csprojResolveAssemblyReference.cache
 C:\Users\jackm\Source\Repos\SuiteProducts\SuiteProducts\obj\Debug\SuiteProducts.dll
 C:\Users\jackm\Source\Repos\SuiteProducts\SuiteProducts\obj\Debug\SuiteProducts.pdb
+C:\Users\jackm\Source\Repos\SuiteProducts\SuiteProducts\obj\Debug\SuiteProducts.Migrations.InitialCreate.resources
+C:\Users\jackm\Source\Repos\SuiteProducts\SuiteProducts\obj\Debug\SuiteProducts.csproj.GenerateResource.Cache
+C:\Users\jackm\Source\Repos\SuiteProducts\SuiteProducts\obj\Debug\SuiteProducts.csprojResolveAssemblyReference.cache

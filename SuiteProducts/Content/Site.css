@@ -38,3 +38,19 @@ textarea {
 .product p {
     font-size: .8em;
 }
+
+    /*form {
+        display: inline; 
+    }
+
+    form input {
+        margin: 10px;
+    }*/
+
+.search{
+    display: inline;
+}
+
+.search input {
+    margin: 10px;
+}

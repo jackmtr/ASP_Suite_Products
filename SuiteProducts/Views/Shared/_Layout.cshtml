@@ -21,10 +21,23 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Snacks", "Index", "Product")</li>
-                    <li>@Html.ActionLink("Main Dishes", "About", "Product")</li>
-                    <li>@Html.ActionLink("Drinks", "Contact", "Product")</li>
+                    <li>@Html.ActionLink("Snacks", "Index", "Product", new { catagory = "snack"},null)</li>
+                    <li>@Html.ActionLink("Main Dishes", "Index", "Product", new { catagory = "main" }, null)</li>
+                    <li>@Html.ActionLink("Beverages", "Index", "Product", new { catagory = "beverage" }, null)</li>
+                    <li>@Html.ActionLink("Packages", "Index", "Package")</li>
                 </ul>
+
+                @using (Html.BeginForm("Index", "Product", FormMethod.Get, new { @class = "search" }))
+                {
+                    @Html.TextBox("searchTerm")
+                    <input type="submit" value="Search By Product Name" />
+                }
+
+            <!--form action="/Product/" method="get">
+                <input type="search" name="searchTerm"/>
+                <input type="submit" value="Search By Product Name" />
+            </form-->
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -32,9 +45,9 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-@*<div>
-        @Html.Action("BestProduct", "Product")
-</div>*@
+    <div>
+            @Html.Action("BestProduct", "Product")
+    </div>
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
             <div>@RenderSection("featured", false)</div><!--Trying out a subview-->

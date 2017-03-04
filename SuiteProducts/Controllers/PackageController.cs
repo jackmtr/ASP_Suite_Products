@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuiteProducts.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,12 +9,15 @@ namespace SuiteProducts.Controllers
 {
     public class PackageController : Controller
     {
+        SuitesProductDb _db = new SuitesProductDb();
+
         // GET: Package
         [HttpGet]//maybe do [Authorize]
-        public ActionResult Index(string id)
+        public ActionResult Index()
         {
-            var message = Server.HtmlEncode(id);
-            return View(message);
+            var packages = _db.Packages.ToList();
+
+            return View(packages);
         }
 
         // GET: Package/Details/5

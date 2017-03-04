@@ -175,11 +175,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703032030413_InitialCreate.cs" />
+    <Compile Include="Migrations\201703032030413_InitialCreate.Designer.cs">
+      <DependentUpon>201703032030413_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Package.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductPackageVM.cs" />
     <Compile Include="Models\SuitesProductDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -245,11 +251,11 @@
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Shared\_Product.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Package\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
-    <Folder Include="Views\Package\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -258,6 +264,11 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201703032030413_InitialCreate.resx">
+      <DependentUpon>201703032030413_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
