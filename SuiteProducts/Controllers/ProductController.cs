@@ -16,18 +16,57 @@ namespace SuiteProducts.Controllers
         [ChildActionOnly]
         public ActionResult BestProduct() {
 
-            var product = _db.Products.First();
+            var product = _db.Products.OrderBy(x => Guid.NewGuid()).FirstOrDefault();
 
             return PartialView("_Product", product);
         }
 
         // GET: Product
-        public ActionResult Index(string catagory = null, string searchTerm = null)
+        public ActionResult Index([Bind(Prefix ="package")]int? package_id, string catagory = null, string searchTerm = null)
         {
             //turn catagory into a enum
+            int value = 0;
+            var products = _db.Products.ToList();
 
-            var model = _db.Products.Where(r => (catagory == null && searchTerm == null) || r.Catagory.ToUpper() == catagory.ToUpper() || r.Product_Name.StartsWith(searchTerm)).Take(10);
-            return View(model);
+            if (package_id != null)
+            {
+                value = 1;
+            }
+            else if (catagory != null) {
+                value = 2;
+            }
+            else if (searchTerm != null) {
+                value = 3;
+            }
+            else {
+                value = 0;
+            }
+
+            switch (value)
+            {
+                case 1:
+                    products = products.Where(r => r.Package_Id == package_id).ToList();
+                    break;
+                case 2:
+                    products = products.Where(r => r.Catagory == catagory).ToList();
+                    break;
+                    //fix search to look for works anywhere
+                case 3:
+                    products = products.Where(r => r.Product_Name.StartsWith(searchTerm)).Take(10).ToList();
+                    break;
+                default: 
+                    break;
+            }
+
+            if (products != null)
+            {
+                return View(products);
+            }
+            else {
+                return HttpNotFound();
+            }
+
+            
         }
 
         // GET: Product/Details/5

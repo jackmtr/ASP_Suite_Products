@@ -46,7 +46,12 @@
         @RenderBody()
         <hr />
     <div>
+        <h3>
+            Featured Product:
+        </h3>    
+        <p>
             @Html.Action("BestProduct", "Product")
+        </p>
     </div>
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>

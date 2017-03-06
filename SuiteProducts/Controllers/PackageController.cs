@@ -21,19 +21,19 @@ namespace SuiteProducts.Controllers
         }
 
         // GET: Package/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Package package = _db.Packages.Find(id);
-            if (package == null)
-            {
-                return HttpNotFound();
-            }
-            return View(package);
-        }
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Package package = _db.Packages.Find(id);
+        //    if (package == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(package);
+        //}
 
         // GET: Package/Create
         public ActionResult Create()

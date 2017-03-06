@@ -61,7 +61,7 @@ namespace SuiteProducts.Migrations
                         {
                             Product_Name = "Popcorn",
                             Price = 18.0F,
-                            Catagory = "Snack",
+                            Catagory = "snack",
                             Description = "Bottomless",
                         },
 
@@ -69,21 +69,21 @@ namespace SuiteProducts.Migrations
                         {
                             Product_Name = "Fresh Vegetable",
                             Price = 60.00F,
-                            Catagory = "Snack",
+                            Catagory = "snack",
                             Description = "Baby carrots, celery, grape tomatoes, cauliflower, broccoli, cucumber, radish, peppers, sour cream dill dip",
                         },
                         new Product
                         {
                             Product_Name = "Fresh Fruit",
                             Price = 65.0F,
-                            Catagory = "Snack",
+                            Catagory = "snack",
                             Description = "Watermelon, cantaloupe, pineapple, honeydew, strawberries, raspberries, blueberries",
                         },
                         new Product
                         {
                             Product_Name = "Kettle Chips",
                             Price = 24.0F,
-                            Catagory = "Snack",
+                            Catagory = "snack",
                             Description = "French Onion Dip",
                         }
                     }
@@ -96,7 +96,7 @@ namespace SuiteProducts.Migrations
                         {
                             Product_Name = "Premium Cheese Platter",
                             Price = 100.00F,
-                            Catagory = "Snack",
+                            Catagory = "snack",
                             Description = "Artisan selection of assorted, perfecly ripened local and international cheeses, pear jam, grpes, dried fruits.",
                         },
                     }
@@ -106,13 +106,13 @@ namespace SuiteProducts.Migrations
                 new Product {
                     Product_Name = "Dry Roasted Peanuts",
                     Price = 22.0F,
-                    Catagory = "Snack",
+                    Catagory = "snack",
                 },
                 new Product
                 {
                     Product_Name = "Crispy Chicken Tenders",
                     Price = 75.0F,
-                    Catagory = "Main",
+                    Catagory = "main",
                     Description = "Honey mustard sauce",
                 }
             );
