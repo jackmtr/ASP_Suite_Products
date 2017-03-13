@@ -21,8 +21,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Snacks", "Index", "Product", new { catagory = "snack"},null)</li>
-                    <li>@Html.ActionLink("Main Dishes", "Index", "Product", new { catagory = "main" }, null)</li>
+                    <li>@Html.ActionLink("Snacks and Appetizers", "Index", "Product", new { catagory = "snack_appetizers"},null)</li>
+                    <li>@Html.ActionLink("Main Course", "Index", "Product", new { catagory = "main_course" }, null)</li>
+                    <li>@Html.ActionLink("Desserts", "Index", "Product", new { catagory = "desserts" }, null)</li>
                     <li>@Html.ActionLink("Beverages", "Index", "Product", new { catagory = "beverage" }, null)</li>
                     <li>@Html.ActionLink("Packages", "Index", "Package")</li>
                 </ul>
@@ -38,7 +39,7 @@
                 <input type="submit" value="Search By Product Name" />
             </form-->
 
-                @Html.Partial("_LoginPartial")
+                @*Html.Partial("_LoginPartial")*@
             </div>
         </div>
     </div>

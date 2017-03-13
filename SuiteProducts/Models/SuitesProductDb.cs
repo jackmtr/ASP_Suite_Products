@@ -12,5 +12,15 @@ namespace SuiteProducts.Models
 
         public DbSet<Package> Packages { get; set; }
         public DbSet<Product> Products { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Package>()
+                .HasMany(pa => pa.Products).WithMany(pr => pr.Packages)
+                .Map(t => t.MapLeftKey("package_id")
+                    .MapRightKey("product_id")
+                    .ToTable("Package_Product"));
+        }
     }
 }

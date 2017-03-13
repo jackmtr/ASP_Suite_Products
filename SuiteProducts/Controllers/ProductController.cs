@@ -45,16 +45,33 @@ namespace SuiteProducts.Controllers
             switch (value)
             {
                 case 1:
-                    products = products.Where(r => r.Package_Id == package_id).ToList();
+                    //products = products.Where(r => r.Package_Id == package_id).ToList();
+                    products = products.Where(pr => pr.Packages.Any(pa => pa.Package_Id == package_id)).ToList();
                     break;
                 case 2:
-                    products = products.Where(r => r.Catagory == catagory).ToList();
+                    //products = products.Where(r => r.Catagory == catagory).ToList();
+                    if (catagory == "snack_appetizers")
+                    {
+                        products = products.Where(r => r.Catagory == "snack" || r.Catagory == "appetizers" || r.Catagory == "cold_platters" || r.Catagory == "salads").ToList();
+                    }
+                    else if (catagory == "main_course")
+                    {
+                        products = products.Where(r => r.Catagory == "sliders" || r.Catagory == "sushi" || r.Catagory == "entrees" || r.Catagory == "pasta" || r.Catagory == "sandwiches" || r.Catagory == "pizza" || r.Catagory == "kids").ToList();
+                    }
+                    else if (catagory == "desserts")
+                    {
+                        products = products.Where(r => r.Catagory == "desserts").ToList();
+                    }
+                    else if (catagory == "beverage")
+                    {
+                        products = products.Where(r => r.Catagory == "wine_spirits" || r.Catagory == "beers_coolers" || r.Catagory == "non_alcoholic").ToList();
+                    }
                     break;
-                    //fix search to look for works anywhere
+                //fix search to look for works anywhere
                 case 3:
                     products = products.Where(r => r.Product_Name.StartsWith(searchTerm)).Take(10).ToList();
                     break;
-                default: 
+                default:
                     break;
             }
 
